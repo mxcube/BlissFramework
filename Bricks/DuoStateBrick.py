@@ -16,8 +16,12 @@ class DuoStateBrick(BaseComponents.BlissWidget):
         'disabled': (widget_colors.LIGHT_RED, False, False, False, False),
         'error': (widget_colors.LIGHT_RED, True, True, False, False),
         'out': (widget_colors.DARK_GRAY, True, True, False, True),
+        'off': (widget_colors.DARK_GRAY, True, True, False, True),
+        'closed': (widget_colors.DARK_GRAY, True, True, False, True),
         'moving': (widget_colors.LIGHT_YELLOW, False, False, None, None),
         'in': (widget_colors.LIGHT_GREEN, True, True, True, False),
+        'on': (widget_colors.LIGHT_GREEN, True, True, True, False),
+        'opened': (widget_colors.LIGHT_GREEN, True, True, True, False),
         'automatic': (widget_colors.WHITE, True, True, False, False)
     }
 
@@ -55,11 +59,13 @@ class DuoStateBrick(BaseComponents.BlissWidget):
         self.buttonsBox=QHBox(self.containerBox)
         self.setInButton=QPushButton("Set in",self.buttonsBox)
         self.setInButton.setToggleButton(True)
-        self.connect(self.setInButton,SIGNAL('toggled(bool)'),self.setIn)
+        #self.connect(self.setInButton,SIGNAL('toggled(bool)'),self.setIn)
+        self.connect(self.setInButton,SIGNAL('clicked()'),self.setIn)
 
         self.setOutButton=QPushButton("Set out",self.buttonsBox)
         self.setOutButton.setToggleButton(True)
-        self.connect(self.setOutButton,SIGNAL('toggled(bool)'),self.setOut)
+        #self.connect(self.setOutButton,SIGNAL('toggled(bool)'),self.setOut)
+        self.connect(self.setOutButton,SIGNAL('clicked()'),self.setOut)
 
         #self.stateLabel.setHintWidget(self.buttonsBox)
 
@@ -82,7 +88,7 @@ class DuoStateBrick(BaseComponents.BlissWidget):
             self.buttonsBox.hide()
 
         
-    def setIn(self,state):
+    def setIn(self,state=True):
         #print "DuoStateBrick.setIn",state
         if state:
             self.wrapperHO.setIn()
@@ -91,8 +97,8 @@ class DuoStateBrick(BaseComponents.BlissWidget):
             self.setInButton.setState(QPushButton.On)
             self.setInButton.blockSignals(False)
 
-    def setOut(self,state):
-        #print "DuoStateBrick.setOut",state
+    def setOut(self,state=True):
+        logging.debug( "DuoStateBrick.setOut %s" % str(state) )
         if state:
             self.wrapperHO.setOut()
         else:
@@ -295,7 +301,7 @@ class WrapperHO(QObject):
 
     shutterStateDict={'fault':'error', 'opened':'in', 'closed':'out',\
         'unknown':'unknown', 'moving':'moving', 'automatic':'automatic',\
-        'disabled':'disabled', 'error':'error'}
+        'disabled':'disabled', 'error':'error', 'off':'in', 'on':'out'}
 
     motorWPosDict=('out', 'in')
     motorWStateDict=('disabled', 'error', None, 'moving',\
@@ -323,6 +329,9 @@ class WrapperHO(QObject):
         #print "Type is",self.devClass
         if self.devClass=="Device":
             self.devClass="Procedure"
+
+        if self.devClass=="SoleilSafetyShutter":
+            self.devClass="Shutter"
 
         if self.devClass=="TangoShutter":
             self.devClass="Shutter"
