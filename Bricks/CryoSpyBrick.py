@@ -36,6 +36,7 @@ from BlissFramework.BaseComponents import BlissWidget
 from BlissFramework import Icons
 from qt import *
 from BlissFramework.Utils import widget_colors
+import math
 
 __category__ = "Synoptic"
 __author__ = "Vicente Rey, Matias Guijarro, Jose Gabadinho"
@@ -118,6 +119,15 @@ class CryoSpyBrick(BlissWidget):
         else:
             svalue = "%s K" % str(self['formatString'] % temp)
             self.temperature.setText(svalue)
+
+            try:
+                if math.isnan(temp):
+                    return
+            except:
+                import traceback 
+                import logging
+                logging.info("temp is type: %s " % str(type(temp)))
+                logging.info(traceback.format_exc())
 
             if temp > self["warningTemp"]:
               self.temperature.setPaletteBackgroundColor(widget_colors.LIGHT_RED)
