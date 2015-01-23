@@ -204,10 +204,6 @@ class CryoSpyBrick(BlissWidget):
             if self.cryodev is not None:
                 self.disconnect(self.cryodev, PYSIGNAL("levelChanged"), self.setLevel)
                 self.disconnect(self.cryodev, PYSIGNAL("temperatureChanged"), self.setTemperature)
-                #self.disconnect(self.cryodev, PYSIGNAL("cryoStatusChanged"), self.setIcing)
-                #self.disconnect(self.cryodev, PYSIGNAL("dryStatusChanged"), self.setDrier)
-                #self.disconnect(self.cryodev, PYSIGNAL("sdryStatusChanged"), self.setSDrier)
-                
             self.cryodev = self.getHardwareObject(newValue)
             if self.cryodev is not None:
                 self.containerBox.setEnabled(True)
@@ -216,7 +212,7 @@ class CryoSpyBrick(BlissWidget):
                 #self.connect(self.cryodev, PYSIGNAL("cryoStatusChanged"), self.setIcing)
                 #self.connect(self.cryodev, PYSIGNAL("dryStatusChanged"), self.setDrier)
                 #self.connect(self.cryodev, PYSIGNAL("sdryStatusChanged"), self.setSDrier)
-
+              
                 self.setLevel(self.cryodev.n2level)
                 self.setTemperature(self.cryodev.temp)
                 #self.setIcing(self.cryodev.cryo_status)
