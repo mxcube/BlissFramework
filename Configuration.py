@@ -7,8 +7,6 @@ from BlissFramework.Utils import PropertyBag
 from BlissFramework import BaseLayoutItems
 from BlissFramework.BaseComponents import NullBrick
 
-# this is just a comment
-
 def loadModule(brickName):
     fp = None
     try:
