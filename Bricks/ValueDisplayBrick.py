@@ -33,6 +33,7 @@ class ValueDisplayBrick(SynopticBrick.SynopticBrick):
                  
 
     def setValue(self, value=None, *args):
+        logging.getLogger().debug(" ValueDisplayBrick. Valuechanged. it is: %s" % value)
         if value is None:
             value = self.value
         else:
@@ -71,6 +72,7 @@ class ValueDisplayBrick(SynopticBrick.SynopticBrick):
             if self.tacoHardwareObject is not None:
                 self.connect(self.tacoHardwareObject, PYSIGNAL('valueChanged'), self.setValue)
                 self.connect(self.tacoHardwareObject, PYSIGNAL('timeout'), self.setValue)
+                self.setValue( self.tacoHardwareObject.getValue() )
             else:
                 self.setValue(None)
         elif propertyName == 'displayType':

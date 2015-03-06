@@ -107,6 +107,8 @@ class McaSpectrumBrick(BlissWidget):
                 text = report.getText()
                 report.writeReport(text=text)
         except:
+            import traceback
+            traceback.print_exc()
             logging.getLogger().exception('McaSpectrumBrick: problem fitting %s %s %s' % (str(data),str(calib),str(config)))
             raise
 

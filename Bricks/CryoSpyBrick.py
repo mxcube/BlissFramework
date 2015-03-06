@@ -67,13 +67,17 @@ class CryoSpyBrick(BlissWidget):
         self.temperature=QLabel(self.containerBox)
         self.temperature.setAlignment(QLabel.AlignCenter)
         self.temperature.setPaletteForegroundColor(widget_colors.WHITE)
-        #self.temperature.setPaletteBackgroundColor(widget_colors.LIGHT_BLUE)
+        self.temperature.setPaletteBackgroundColor(widget_colors.LIGHT_BLUE)
         font=self.temperature.font()
         font.setStyleHint(QFont.OldEnglish)
         self.temperature.setFont(font)
 
-        #self.level=QProgressBar(self.containerBox)
+        self.level=QProgressBar(self.containerBox)
+        self.level.setPaletteForegroundColor(widget_colors.WHITE)
+        self.level.setPaletteBackgroundColor(widget_colors.GRAY)
+        #print "PROGRESS ", dir(self.level)
 
+        #self.level.setPaletteHighlightColor(widget_colors.GRAY)
         # grid1=QWidget(self.containerBox)
         # QGridLayout(grid1, 3, 2, 2, 1)
 
@@ -188,16 +192,16 @@ class CryoSpyBrick(BlissWidget):
         self.superdryState.setText(status)
 
     def setLevel(self,level):
-        pass
-##         if level is None:
-##             self.level.reset()
-##         else:
-##             try:
-##                 level=int(level)
-##             except:
-##                 pass
-##             else:
-##                 self.level.setProgress(level)
+#        pass
+        if level is None:
+            self.level.reset()
+        else:
+            try:
+                level=int(level)
+            except:
+                pass
+            else:
+                self.level.setProgress(level)
 
     def propertyChanged(self, property, oldValue, newValue):
         if property == 'mnemonic':
