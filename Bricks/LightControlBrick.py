@@ -26,8 +26,8 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
         self.lightOnButton.setPixmap(Icons.load('far_right'))
         self.connect(self.lightOnButton,SIGNAL('clicked()'),self.lightButtonOnClicked)
 
-        self.spinBox.close()
-        self.stepButton.close()
+        #self.spinBox.close()
+        #self.stepButton.close()
         self.stopButton.close()
 
         QToolTip.add(self.lightOffButton,"Switches off the light and sets the intensity to zero")
@@ -37,7 +37,7 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
         self.lightOffButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
         self.lightOnButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
 
-        #self.defineSlot('wagoLightStateChanged',())
+        self.defineSlot('wagoLightStateChanged',())
 
     ### Light off pressed: switch off lamp and set out the wago
     def lightButtonOffClicked(self):
@@ -45,11 +45,11 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
         if self.wagoLight is not None:
             if self.wagoLight.getWagoState()!="out":
                 if self.motor is not None:
-                    try:
-                        self.lightSavedPosition=self.motor.getPosition()
-                    except:
-                        logging.exception("could not get light actuator position")
-                        self.lightSavedPosition=None
+                    #try:
+                    #    self.lightSavedPosition=self.motor.getPosition()
+                    #except:
+                    #    logging.exception("could not get light actuator position")
+                    #    self.lightSavedPosition=None
                     if self['out_delta']!="":
                         delta=float(self['out_delta'])
                     else:
@@ -68,13 +68,14 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
             if self.wagoLight.getWagoState()!="in":
                 self.wagoLightStateChanged('unknown')
                 self.wagoLight.wagoIn()
-                if self.lightSavedPosition is not None and self.motor is not None:
-                    self.motor.move(self.lightSavedPosition)
+                #if self.lightSavedPosition is not None and self.motor is not None:
+                #    self.motor.move(self.lightSavedPosition)
             else:
                 self.lightOnButton.setDown(True)
 
     ### Wago light events
     def wagoLightStateChanged(self,state):
+        logging.debug("MotorSpinBoxBrick.wagoLightStateChanged %s" % state)
         #print "LightControlBrick.wagoLightStateChanged",state
         if state=='in':
             self.lightOnButton.setDown(True)
