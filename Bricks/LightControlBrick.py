@@ -55,7 +55,7 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
                     else:
                         delta=0.0
                     light_limits=self.motor.getLimits()
-                    self.motor.move(light_limits[0]+delta)
+                    #self.motor.move(light_limits[0]+delta)
                 self.wagoLightStateChanged('unknown')
                 self.wagoLight.wagoOut()
             else:
@@ -113,6 +113,7 @@ class LightControlBrick(MotorSpinBoxBrick.MotorSpinBoxBrick):
             if self.motor is not None:
                 if self.motor.isReady():
                     limits=self.motor.getLimits()
+                    logging.info('LightControlBrick limits I got are %s' % limits)
                     motor_range=float(limits[1]-limits[0])
                     self['delta']=str(motor_range/10.0)
                 else:

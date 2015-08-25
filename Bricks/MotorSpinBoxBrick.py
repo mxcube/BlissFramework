@@ -244,6 +244,7 @@ class MotorSpinBoxBrick(BaseComponents.BlissWidget):
 
     # Set the limits for the spin box
     def limitsChanged(self,limits):
+        logging.debug("MotorSpinBoxBrick.limitsChanged %s " % limits)
         self.spinBox.blockSignals(True)
         self.spinBox.setMinValue(limits[0])
         self.spinBox.setMaxValue(limits[1])

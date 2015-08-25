@@ -158,7 +158,7 @@ def run(GUIConfigFile=None):
         i=1
         logfile_details=os.path.splitext(logFile)
         logFile=""
-        while i<10:
+        while i<100:
           logFile2="%s.%d%s" % (logfile_details[0],i,logfile_details[1])
           log_lock_filename2=os.path.join(tempfile.gettempdir(), '.%s.lock' % os.path.basename(logFile2))
           try:

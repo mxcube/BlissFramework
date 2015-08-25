@@ -137,7 +137,7 @@ class CryoSpyBrick(BlissWidget):
               self.temperature.setPaletteBackgroundColor(widget_colors.LIGHT_RED)
               if not old["warning"]:
                 old["warning"]=True
-                QMessageBox.critical(self, "Warning: risk for sample", "Cryo temperature is too high - sample is in danger!\nPlease fix the problem with cryo cooler") 
+                #QMessageBox.critical(self, "Warning: risk for sample", "Cryo temperature is too high - sample is in danger!\nPlease fix the problem with cryo cooler") 
             else:
               old["warning"]=False 
               self.temperature.setPaletteBackgroundColor(widget_colors.LIGHT_BLUE)

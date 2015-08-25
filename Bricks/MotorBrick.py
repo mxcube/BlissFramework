@@ -441,7 +441,11 @@ class MotorBrick(BaseComponents.BlissWidget):
 
                
     def limitChanged(self, limits):
-        self.slider.setRange(limits[0], limits[1])
+        try:
+            self.slider.setRange(limits[0], limits[1])
+        except:
+            print 'can\'t set limits'
+            #pass
 
 
     def moveMotor(self, movePosition):
