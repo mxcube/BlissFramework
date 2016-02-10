@@ -329,7 +329,10 @@ class WrapperHO(QObject):
         #print "Type is",self.devClass
         if self.devClass=="Device":
             self.devClass="Procedure"
-
+        
+        if self.devClass=="SOLEILGuillotine":
+            self.devClass="Shutter"
+            
         if self.devClass=="SoleilSafetyShutter":
             self.devClass="Shutter"
 
@@ -351,7 +354,7 @@ class WrapperHO(QObject):
         #2013-10-31-bessy-mh: end
             
         if not self.devClass in ("WagoPneu", "Shutter", "SpecMotorWSpecPositions", "Procedure", "Actuator"):
-          self.devClass = "WagoPneu"
+            self.devClass = "WagoPneu"
 
         initFunc = getattr(self, "init%s" % self.devClass)
         initFunc()
@@ -377,7 +380,6 @@ class WrapperHO(QObject):
 
     # WagoPneu HO methods
     def initWagoPneu(self):
-        #print "initWagoPneu"
         self.dev.connect(self.dev,'wagoStateChanged', self.stateChangedWagoPneu)
     def setInWagoPneu(self):
         #print "setInWagoPneu"
@@ -433,7 +435,7 @@ class WrapperHO(QObject):
 
     # Shutter HO methods
     def initShutter(self):
-        #print "initShutter"
+        #logging.info("initShutter")
         self.dev.connect(self.dev, 'shutterStateChanged', self.stateChangedShutter)
     def setInShutter(self):
         #print "setInShutter"
