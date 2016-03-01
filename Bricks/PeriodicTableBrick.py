@@ -87,7 +87,8 @@ class PeriodicTableBrick(BlissWidget):
             self.setMaximumWidth(newValue)
         else:
             BlissWidget.propertyChanged(self,property,oldValue,newValue)
-
+            
+    
     def edgeSelected(self, symbol, energy):
         self.emit(PYSIGNAL('edgeSelected'), (symbol, energy))
         self.current_element = symbol
@@ -97,6 +98,9 @@ class PeriodicTableBrick(BlissWidget):
             #self.hole.setEnabled(True)
             self.hole_label.show()
             self.hole.show()
+            self.hole.setCurrentItem(1)
+            self.current_edge = "L3"
+            self.periodicTable.tableElementChanged(self.current_element, self.current_edge)
         else:
             #self.hole_label.setEnabled(False)
             #self.hole.setEnabled(False)
