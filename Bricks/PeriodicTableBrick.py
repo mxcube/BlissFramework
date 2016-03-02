@@ -96,11 +96,12 @@ class PeriodicTableBrick(BlissWidget):
         if energy != "K":
             #self.hole_label.setEnabled(True)
             #self.hole.setEnabled(True)
-            self.hole_label.show()
-            self.hole.show()
-            self.hole.setCurrentItem(1)
-            self.current_edge = "L3"
-            self.periodicTable.tableElementChanged(self.current_element, self.current_edge)
+            #self.hole_label.show()
+            #self.hole.show()
+            #self.hole.setCurrentItem(1)
+            self.hole_activated("L3")
+            #self.current_edge = "L3"
+            #self.periodicTable.tableElementChanged(self.current_element, self.current_edge)
         else:
             #self.hole_label.setEnabled(False)
             #self.hole.setEnabled(False)
